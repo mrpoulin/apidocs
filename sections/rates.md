@@ -3,8 +3,8 @@
 | Endpoint | Description |
 | ---- | ---- |
 | [GET /v1/instruments](#get-v1instruments) | Instrument Discovery |
-| [GET /v1/instruments/quote](#get-v1instrumentsprice) | Get current price for instrument(s) |
-| [GET /v1/instruments/history](#get-v1instrumentsinstrumentcandles) | Get historical rates for an instrument |
+| [GET /v1/instruments/quote](#get-v1quote) | Get current price for instrument(s) |
+| [GET /v1/instruments/:instrument/history](#get-v1instrumentsinstrumenthistory) | Get historical rates for an instrument |
 <!--
 | [POST /v1/instruments/poll](#post-v1instrumentspoll) | Create and modify rates/candle polling session ([about rates polling](#aboutratespolling))|
 | [GET /v1/instruments/poll](#get-v1instrumentsinstrumentspoll) | Rates/candle polling ([about rates polling](#aboutratespolling))|
@@ -51,7 +51,7 @@ Return a list of instruments (currency pairs, CFDs, and commodities) that are av
 Fetch live prices for instruments that are available on the OANDA platform.
 
 #### Request
-    http://api-sandbox.oanda.com/v1/quotes
+    http://api-sandbox.oanda.com/v1/quote
 
 #### Response
 	{
@@ -87,7 +87,7 @@ Fetch live prices for instruments that are available on the OANDA platform.
 * __visibility__: "tradeable" (default) or "all". instrument that is tradeable means user can place a trade and order in with that instrument.
 
 * __instruments__:  A comma-separated list of instruments to fetch prices for.  Values should be one of the available `instrument` from the /v1/instruments response.
-                    For Example - http://api-sandbox.oanda.com/v1/quotes?instruments=EUR_USD,USD_JPY
+                    For Example - http://api-sandbox.oanda.com/v1/quote?instruments=EUR_USD,USD_JPY
 
 <!--
 **Optional**
