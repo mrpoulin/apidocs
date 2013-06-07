@@ -3,9 +3,8 @@
 | Endpoint | Description |
 | ---- | ---- |
 | [GET /v1/instruments](#get-v1instruments) | Instrument Discovery |
-| [GET /v1/instruments/price](#get-v1instrumentsprice) | Get current price for multiple instruments |
-| [GET /v1/instruments/:instrument/price](#get-v1instrumentsinstrumentprice) | Get current price for single instrument |
-| [GET /v1/instruments/:instrument/candles](#get-v1instrumentsinstrumentcandles) | Get candlesticks for a single instrument |
+| [GET /v1/instruments/quote](#get-v1instrumentsprice) | Get current price for instrument(s) |
+| [GET /v1/instruments/history](#get-v1instrumentsinstrumentcandles) | Get historical rates for an instrument |
 <!--
 | [POST /v1/instruments/poll](#post-v1instrumentspoll) | Create and modify rates/candle polling session ([about rates polling](#aboutratespolling))|
 | [GET /v1/instruments/poll](#get-v1instrumentsinstrumentspoll) | Rates/candle polling ([about rates polling](#aboutratespolling))|
@@ -47,12 +46,12 @@ Return a list of instruments (currency pairs, CFDs, and commodities) that are av
 -->
 
 
-## GET /v1/instruments/price
+## GET /v1/quote
 
-Fetch live prices for a list of instruments.
+Fetch live prices for instruments that are available on the OANDA platform.
 
 #### Request
-    http://api-sandbox.oanda.com/v1/instruments/price?instruments=EUR_USD,USD_JPY
+    http://api-sandbox.oanda.com/v1/quotes
 
 #### Response
 	{
@@ -70,35 +69,26 @@ Fetch live prices for a list of instruments.
 				"bid":82.109,
 				"ask":82.125
 			}
+                        .
+                        .
+                        {
+                                "instrument":"USD_CAD",
+                                "time":1354233939.249345,
+                                "bid":1.0234,
+                                "ask":1.0241:
+                        }
 		]
 	}
 
 #### Query Parameters
 
-**Required**
+**Optional**
 
-* **instruments**:  A comma-separated list of instruments to fetch prices for.  Values should be one of the available `instrument` from the /v1/instruments response.
+* __visibility__: "tradeable" (default) or "all". instrument that is tradeable means user can place a trade and order in with that instrument.
 
+* __instruments__:  A comma-separated list of instruments to fetch prices for.  Values should be one of the available `instrument` from the /v1/instruments response.
+                    For Example - http://api-sandbox.oanda.com/v1/quotes?instruments=EUR_USD,USD_JPY
 
-## GET /v1/instruments/:instrument/price
-
-
-Fetch the current price for an instrument.  `:instrument` field in URI should be one of the available `instrument` from the /v1/instruments response.
-
-#### Request
-    http://api-sandbox.oanda.com/v1/instruments/EUR_USD/price
-
-#### Respond
-	{
-		"instrument":"EUR_USD",
-		"time":1354234082.813086,
-		"bid":1.29687,
-		"ask":1.29717
-	}
-
-#### Query Parameters
-
-none
 <!--
 **Optional**
 
@@ -118,10 +108,10 @@ Requesting the instrument's price with the following volumes will return in the 
 __volume__ has a default value of 0, meaning that by default only the lowest run will be returned.
 -->
 
-## GET /v1/instruments/:instrument/candles
+## GET /v1/instruments/:instrument/history/
 
 #### Request
-    http://api-sandbox.oanda.com/v1/instruments/EUR_USD/candles?count=2
+    http://api-sandbox.oanda.com/v1/instruments/EUR_USD/history?count=2
 
 #### Respond
     {
