@@ -3,7 +3,7 @@
 | Endpoint | Description |
 | ---- | ---- |
 | [GET /v1/instruments](#get-v1instruments) | Instrument Discovery |
-| [GET /v1/instruments/quote](#get-v1quote) | Get current price for instrument(s) |
+| [GET /v1/instruments/quote](#get-v1quote) | Get current price for specified instrument(s) |
 | [GET /v1/instruments/:instrument/history](#get-v1instrumentsinstrumenthistory) | Get historical rates for an instrument |
 <!--
 | [POST /v1/instruments/poll](#post-v1instrumentspoll) | Create and modify rates/candle polling session ([about rates polling](#aboutratespolling))|
@@ -40,17 +40,19 @@ Return a list of instruments (currency pairs, CFDs, and commodities) that are av
 * **displayName**: (default) Display name for end user.
 * **pip**: (default) Value of 1 pip for the instrument. [More on pip](http://www.babypips.com/school/pips-and-pipettes.html)
 * **maxTradeUnits**: (default) The maximum number of units that can be traded for the instrument.
+* **precision**: The smallest unit of measurement to express the change in value between the instrument pair. 
+<!--
 * **pipLocation**: 10^(pipLocation) == value of 1 pip for the instrument.
 * **extraPrecision**: The number decimal places provided after the pip.
-* **maxTrailingStop**: The maximum trailing stop value that can be set when trading the instrument.
-* **minTrailingStop**: The minimum trailing stop value that can be set when trading the instrument.
-
+-->
+* **maxTrailingStop**: The maximum trailing stop value (in pips) that can be set when trading the instrument.
+* **minTrailingStop**: The minimum trailing stop value (in pips) that can be set when trading the instrument.
 ## GET /v1/quote
 
-Fetch live prices for instruments that are available on the OANDA platform.
+Fetch live prices for specified instruments that are available on the OANDA platform.
 
 #### Request
-    http://api-sandbox.oanda.com/v1/quote
+    http://api-sandbox.oanda.com/v1/quote??instruments=EUR_USD,USD_JPY
 
 #### Response
 	{
@@ -68,25 +70,17 @@ Fetch live prices for instruments that are available on the OANDA platform.
 				"bid":82.109,
 				"ask":82.125
 			}
-                        .
-                        .
-                        {
-                                "instrument":"USD_CAD",
-                                "time":1354233939.249345,
-                                "bid":1.0234,
-                                "ask":1.0241:
-                        }
 		]
 	}
 
 #### Query Parameters
 
-**Optional**
-
+**Required**
+<!--
 * __visibility__: "tradeable" (default) or "all". instrument that is tradeable means user can place a trade and order in with that instrument.
-
+-->
 * __instruments__:  A comma-separated list of instruments to fetch prices for.  Values should be one of the available `instrument` from the /v1/instruments response.
-                    For Example - http://api-sandbox.oanda.com/v1/quote?instruments=EUR_USD,USD_JPY
+                    For Example - http://api-sandbox.oanda.com/v1/quote?instruments=EUR_USD
 
 <!--
 **Optional**
@@ -142,7 +136,7 @@ __volume__ has a default value of 0, meaning that by default only the lowest run
 **Optional**
 
 * __granularity__: The granularity of the candles to be returned. This must be one of the "named" THS granularities which include:
-	* Second-based: S5,S10,S15,S30
+    * Second-based: S5,S10,S15,S30
     * Minute-based: M1,M2,M3,M4,M5,M10,M15,M30
     * Hour-based: H1,H2,H3,H4,H6,H8,H12
     * Daily: D
@@ -162,12 +156,13 @@ The default for __count__ is 500. Max value for __count__ is 5000.
 	* "BA" - BID/ASK-based candlesticks
 	* "MV" - midpoint-based candlesticks with tick volume
 	* "BAV" - BID/ASK-based candlesticks with tick volume
+Default: "BA"
 
 * __includeFirst__: A boolean field which may be set to "true" or "false". If it is set to "true", the candlestick covered by the <i>start</i> timestamp will be returned. If it is set to "false", this candlestick will not be returned.  
 This field exists to provide clients a mechanism to not repeatedly fetch the most recent candlestick which it is not a "Dancing Bear".  
 Default: true
 
-* If you notice gaps between candles, it's because we don't publish candles for periods for which there are no ticks.
+* No candles are published for intervals where there are no ticks.  This will result in gaps in between time periods.
 
 <!--
 ## POST /v1/instruments/poll
@@ -275,7 +270,7 @@ read
     * "BA" - BID/ASK-based candlesticks
     * "MV" - midpoint-based candlesticks
     * "BAV" - BID/ASK-based candlesticks
-Default: "M"
+Default: "BA"
 
 
 ##About rates polling

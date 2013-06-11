@@ -19,7 +19,7 @@ Price API Overview
 | Resource | URI | Methods | Description |
 | -------- | -------- | ------- | ----------- |
 | [instruments][rates] | /v1/instruments | GET | Retrieve a list of available currency pairs. |
-| [quote][rates] | /v1/quote | GET | Retrieve live prices for instruments. |
+| [quote][rates] | /v1/quote | GET | Retrieve live prices for specified instrument(s). |
 | [history][rates] | /v1/history | GET | Retrieve historical rates for the instrument pair. |
 
 Trading API Overview
