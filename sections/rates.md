@@ -41,12 +41,14 @@ Return a list of instruments (currency pairs, CFDs, and commodities) that are av
 * **pip**: (default) Value of 1 pip for the instrument. [More on pip](http://www.babypips.com/school/pips-and-pipettes.html)
 * **maxTradeUnits**: (default) The maximum number of units that can be traded for the instrument.
 * **precision**: The smallest unit of measurement to express the change in value between the instrument pair. 
+* **maxTrailingStop**: The maximum trailing stop value (in pips) that can be set when trading the instrument.
+* **minTrailingStop**: The minimum trailing stop value (in pips) that can be set when trading the instrument.
+
 <!--
 * **pipLocation**: 10^(pipLocation) == value of 1 pip for the instrument.
 * **extraPrecision**: The number decimal places provided after the pip.
 -->
-* **maxTrailingStop**: The maximum trailing stop value (in pips) that can be set when trading the instrument.
-* **minTrailingStop**: The minimum trailing stop value (in pips) that can be set when trading the instrument.
+
 ## GET /v1/quote
 
 Fetch live prices for specified instruments that are available on the OANDA platform.
