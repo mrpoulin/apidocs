@@ -3,7 +3,7 @@
 | Endpoint | Description |
 | ---- | ---- |
 | [GET /v1/instruments](#get-v1instruments) | Instrument Discovery |
-| [GET /v1/instruments/quote](#get-v1quote) | Get current price for specified instrument(s) |
+| [GET /v1/quote](#get-v1quote) | Get current price for specified instrument(s) |
 | [GET /v1/instruments/:instrument/history](#get-v1instrumentsinstrumenthistory) | Get historical rates for an instrument |
 <!--
 | [POST /v1/instruments/poll](#post-v1instrumentspoll) | Create and modify rates/candle polling session ([about rates polling](#aboutratespolling))|
@@ -43,7 +43,7 @@ Return a list of instruments (currency pairs, CFDs, and commodities) that are av
 * **precision**: The smallest unit of measurement to express the change in value between the instrument pair. 
 * **maxTrailingStop**: The maximum trailing stop value (in pips) that can be set when trading the instrument.
 * **minTrailingStop**: The minimum trailing stop value (in pips) that can be set when trading the instrument.
-
+* **marginRate**: The margin requirement for the instrument. A 3% margin rate will be represented as 0.03. 
 <!--
 * **pipLocation**: 10^(pipLocation) == value of 1 pip for the instrument.
 * **extraPrecision**: The number decimal places provided after the pip.
