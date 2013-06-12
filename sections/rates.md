@@ -54,7 +54,7 @@ Return a list of instruments (currency pairs, CFDs, and commodities) that are av
 Fetch live prices for specified instruments that are available on the OANDA platform.
 
 #### Request
-    http://api-sandbox.oanda.com/v1/quote??instruments=EUR_USD,USD_JPY
+    http://api-sandbox.oanda.com/v1/quote?instruments=EUR_USD,USD_JPY
 
 #### Response
 	{
@@ -103,7 +103,7 @@ Requesting the instrument's price with the following volumes will return in the 
 __volume__ has a default value of 0, meaning that by default only the lowest run will be returned.
 -->
 
-## GET /v1/instruments/:instrument/history/
+## GET /v1/instruments/:instrument/history
 
 #### Request
     http://api-sandbox.oanda.com/v1/instruments/EUR_USD/history?count=2
