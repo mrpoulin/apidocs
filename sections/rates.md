@@ -4,7 +4,7 @@
 | ---- | ---- |
 | [GET /v1/instruments](#get-v1instruments) | Instrument Discovery |
 | [GET /v1/quote](#get-v1quote) | Get current price for specified instrument(s) |
-| [GET /v1/instruments/:instrument/history](#get-v1instrumentsinstrumenthistory) | Get historical rates for an instrument |
+| [GET /v1/history](#get-v1history) | Get historical rates for an instrument |
 <!--
 | [POST /v1/instruments/poll](#post-v1instrumentspoll) | Create and modify rates/candle polling session ([about rates polling](#aboutratespolling))|
 | [GET /v1/instruments/poll](#get-v1instrumentsinstrumentspoll) | Rates/candle polling ([about rates polling](#aboutratespolling))|
@@ -103,37 +103,66 @@ Requesting the instrument's price with the following volumes will return in the 
 __volume__ has a default value of 0, meaning that by default only the lowest run will be returned.
 -->
 
-## GET /v1/instruments/:instrument/history
+## GET /v1/history
 
 #### Request
-    http://api-sandbox.oanda.com/v1/instruments/EUR_USD/history?count=2
+    http://api-sandbox.oanda.com/v1/history?instruments=EUR_USD,USD_CAD&count=2&candleFormat="M"
 
 #### Respond
     {
-        "instrument": "EUR_USD",
-        "granularity": "S5",
-        "candles": [
-            {
-                "time": 1350683410,
-                "openMid": 1.30237,
-                "highMid": 1.30237,
-                "lowMid": 1.30237,
-                "closeMid": 1.30237,
-                "complete": "true"
-            },
-            {
-                "time": 1350684320,
-                "openMid": 1.30242,
-                "highMid": 1.30242,
-                "lowMid": 1.30242,
-                "closeMid": 1.30242,
-                "complete": "true"
-            }
-        ]
+        "EUR_USD" : {  
+           "granularity": "S5",
+           "candles": [
+               {
+                    "time": 1350683410,
+                    "openMid": 1.30237,
+                    "highMid": 1.30237,
+                    "lowMid": 1.30237,
+                    "closeMid": 1.30237,
+                    "complete": "true"
+               },
+               {
+                    "time": 1350684320,
+                    "openMid": 1.30242,
+                    "highMid": 1.30242,
+                    "lowMid": 1.30242,
+                    "closeMid": 1.30242,
+                    "complete": "true"
+               }
+           ]
+        },
+         "USD_CAD" : {  
+           "granularity": "S5",
+           "candles": [
+               {
+                    "time": 1350683540,
+                    "openMid": 1.0237,
+                    "highMid": 1.0237,
+                    "lowMid": 1.0237,
+                    "closeMid": 1.0237,
+                    "complete": "true"
+               },
+               {
+                    "time": 1350684545,
+                    "openMid": 1.0242,
+                    "highMid": 1.0242,
+                    "lowMid": 1.0242,
+                    "closeMid": 1.0242,
+                    "complete": "true"
+               }
+           ]
+        },
     }
 
 
 #### Query Parameters
+
+**Required**
+<!--
+* __visibility__: "tradeable" (default) or "all". instrument that is tradeable means user can place a trade and order in with that instrument.
+-->
+* __instruments__:  A comma-separated list of instruments to fetch prices for.  Values should be one of the available `instrument` from the /v1/instruments response.
+                    For Example - http://api-sandbox.oanda.com/v1/history?instruments=EUR_USD,USD_CAD
 
 **Optional**
 
