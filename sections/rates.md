@@ -44,6 +44,7 @@ Return a list of instruments (currency pairs, CFDs, and commodities) that are av
 * **maxTrailingStop**: The maximum trailing stop value (in pips) that can be set when trading the instrument.
 * **minTrailingStop**: The minimum trailing stop value (in pips) that can be set when trading the instrument.
 * **marginRate**: The margin requirement for the instrument. A 3% margin rate will be represented as 0.03. 
+
 <!--
 * **pipLocation**: 10^(pipLocation) == value of 1 pip for the instrument.
 * **extraPrecision**: The number decimal places provided after the pip.
