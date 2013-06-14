@@ -107,52 +107,33 @@ __volume__ has a default value of 0, meaning that by default only the lowest run
 ## GET /v1/history
 
 #### Request
-    http://api-sandbox.oanda.com/v1/history?instruments=EUR_USD,USD_CAD&count=2&candleFormat="M"
+    http://api-sandbox.oanda.com/v1/history?instrument=EUR_USD&count=2&candleFormat="mid"
 
 #### Respond
     {
-        "EUR_USD" : {  
-           "granularity": "S5",
-           "candles": [
-               {
-                    "time": 1350683410,
-                    "openMid": 1.30237,
-                    "highMid": 1.30237,
-                    "lowMid": 1.30237,
-                    "closeMid": 1.30237,
-                    "complete": "true"
-               },
-               {
-                    "time": 1350684320,
-                    "openMid": 1.30242,
-                    "highMid": 1.30242,
-                    "lowMid": 1.30242,
-                    "closeMid": 1.30242,
-                    "complete": "true"
-               }
-           ]
-        },
-         "USD_CAD" : {  
-           "granularity": "S5",
-           "candles": [
-               {
-                    "time": 1350683540,
-                    "openMid": 1.0237,
-                    "highMid": 1.0237,
-                    "lowMid": 1.0237,
-                    "closeMid": 1.0237,
-                    "complete": "true"
-               },
-               {
-                    "time": 1350684545,
-                    "openMid": 1.0242,
-                    "highMid": 1.0242,
-                    "lowMid": 1.0242,
-                    "closeMid": 1.0242,
-                    "complete": "true"
-               }
-           ]
-        },
+        "instrument" : "EUR_USD",
+        "granularity": "S5",
+        "candles": [
+           {
+               "time": 1350683410,
+               "openMid": 1.30237,
+               "highMid": 1.30237,
+               "lowMid": 1.30237,
+               "closeMid": 1.30237,
+               "volume" : 5000,
+               "complete": "true",
+           },
+           {
+               "time": 1350684320,
+               "openMid": 1.30242,
+               "highMid": 1.30242,
+               "lowMid": 1.30242,
+               "closeMid": 1.30242,
+               "volume" : 2000,
+               "complete": "true"
+           }
+        ]
+        
     }
 
 
@@ -162,19 +143,43 @@ __volume__ has a default value of 0, meaning that by default only the lowest run
 <!--
 * __visibility__: "tradeable" (default) or "all". instrument that is tradeable means user can place a trade and order in with that instrument.
 -->
-* __instruments__:  A comma-separated list of instruments to fetch prices for.  Values should be one of the available `instrument` from the /v1/instruments response.
-                    For Example - http://api-sandbox.oanda.com/v1/history?instruments=EUR_USD,USD_CAD
+* __instrument__:  Name of the instrument to retreive history for.  The instrument should be one of the available instrument from the /v1/instruments response.
 
 **Optional**
 
-* __granularity__: The granularity of the candles to be returned. This must be one of the "named" THS granularities which include:
-    * Second-based: S5,S10,S15,S30
-    * Minute-based: M1,M2,M3,M4,M5,M10,M15,M30
-    * Hour-based: H1,H2,H3,H4,H6,H8,H12
-    * Daily: D
-    * Weekly: W
-    * Monthly: M
-The default for __granularity__ is "S5"
+* __granularity__: The time range represented by each candlestick.  The value specified will determine the alignment of the first candlestick.
+    
+	Valid values are:
+
+	* __Top of the minute alignment__
+		* "S5"  - 5 seconds
+		* "S10" - 10 seconds
+		* "S15" - 15 seconds
+		* "S30" - 30 seconds
+		* "M1"  - 1 minute
+	* __Top of the hour alignment__
+		* "M2"  - 2 minutes
+		* "M3"  - 3 minutes
+		* "M5"  - 5 minutes
+		* "M10" - 10 minutes
+		* "M15" - 15 minutes
+		* "M30" - 30 minutes
+		* "H1"  - 1 hour
+	* __Start of day alignment (12 am, Timezone/New York)__
+		* "H2"  - 2 hours
+		* "H3"  - 3 hours
+		* "H4"  - 4 hours
+		* "H6"  - 6 hours
+		* "H8"  - 8 hours
+		* "H12" - 12 hours
+		* "D"   - 1 Day
+	* __Start of week alignment (Saturday)__
+		* "W"   - 1 Week
+	* __Start of week alignment (Saturday)__
+		* "M"   - 1 Month
+	
+
+The default for __granularity__ is "S5" if the granularity parameter is not provided.
 
 * __count__: The number of candles to return in the response. This paramater may be ignored by the server depending on the time range provided. See "Time and Count Semantics" below for a full description.  * 
 The default for __count__ is 500. Max value for __count__ is 5000.
@@ -184,11 +189,10 @@ The default for __count__ is 500. Max value for __count__ is 5000.
 * __end__: The end timestamp for the range of candles requested. Default: NULL (unset)
 
 * __candleFormat__: Candlesticks representation ([about candestick representation](#candlestick-representation)). This can be one of the following:
-	* "M" - midpoint-based candlesticks
-	* "BA" - BID/ASK-based candlesticks
-	* "MV" - midpoint-based candlesticks with tick volume
-	* "BAV" - BID/ASK-based candlesticks with tick volume
-Default: "BA"
+	* "mid" - Midpoint based candlesticks.
+	* "bidask" - Bid/Ask based candlesticks
+
+The default for __candleFormat__ is "bidask" if the candleFormat parameter is not provided.
 
 * __includeFirst__: A boolean field which may be set to "true" or "false". If it is set to "true", the candlestick covered by the <i>start</i> timestamp will be returned. If it is set to "false", this candlestick will not be returned.  
 This field exists to provide clients a mechanism to not repeatedly fetch the most recent candlestick which it is not a "Dancing Bear".  
@@ -372,6 +376,8 @@ Notes: /instruments/poll is only meant to be used to retrieve updates. Please us
 
 ## Candlestick Representation
 
+<!--
+
 M" - midpoint-based candlesticks. Each Candle will have the format:
 
     {
@@ -398,7 +404,9 @@ M" - midpoint-based candlesticks. Each Candle will have the format:
         "complete":<DB>
     }
 
-"MV" midpoint-based candlesticks with tick volume
+-->
+
+"mid" midpoint-based candlesticks with tick volume
 
     {
         "timestamp":<TS>,
@@ -410,7 +418,7 @@ M" - midpoint-based candlesticks. Each Candle will have the format:
         "complete":<DB>
     }
 
-"BAV" - BID/ASK-based candlesticks with tick volume
+"bidask" - BID/ASK-based candlesticks with tick volume
 
     {
         "timestamp":<TS>,
