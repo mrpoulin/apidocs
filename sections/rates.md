@@ -175,14 +175,16 @@ __volume__ has a default value of 0, meaning that by default only the lowest run
 		* "D"   - 1 Day
 	* __Start of week alignment (Saturday)__
 		* "W"   - 1 Week
-	* __Start of week alignment (Saturday)__
+	* __Start of month alignment (First day of the month)__
 		* "M"   - 1 Month
 	
 
 The default for __granularity__ is "S5" if the granularity parameter is not provided.
 
 * __count__: The number of candles to return in the response. This paramater may be ignored by the server depending on the time range provided. See "Time and Count Semantics" below for a full description.  * 
-The default for __count__ is 500. Max value for __count__ is 5000.
+The default for __count__ is 500. Max value for __count__ is 5000.  
+             
+__Note__: __count__ should not be specified if both the __start__ and __end__ parameters are also specified.
 
 * __start__: The start timestamp for the range of candles requested. Default: NULL (unset)
 
