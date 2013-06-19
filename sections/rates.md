@@ -31,7 +31,6 @@ Return a list of instruments (currency pairs, CFDs, and commodities) that are av
 #### Query Parameters
 **Optional**
 
-* __visibility__: "tradeable" (default) or "all". instrument that is tradeable means user can place a trade and order in with that instrument.  
 * __fields__: A comma-separated list of instrument fields which are to be returned in the response.  
 		Please see the Response Parameters section below for a list of valid values.
 		If not specified, the default fields returned are __instrument__, __displayName__, __pip__, __maxTradeUnits__.
