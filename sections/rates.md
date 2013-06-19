@@ -138,9 +138,7 @@ __volume__ has a default value of 0, meaning that by default only the lowest run
 #### Query Parameters
 
 **Required**
-<!--
-* __visibility__: "tradeable" (default) or "all". instrument that is tradeable means user can place a trade and order in with that instrument.
--->
+
 * __instrument__:  Name of the instrument to retreive history for.  The instrument should be one of the available instrument from the /v1/instruments response.
 
 **Optional**
@@ -192,11 +190,11 @@ If not specified, __count__ will default to 500. The maximum acceptable value fo
 	* "midpoint" - Midpoint based candlesticks.
 	* "bidask" - Bid/Ask based candlesticks
 
-The default for __candleFormat__ is "bidask" if the candleFormat parameter is not provided.
+The default for __candleFormat__ is "bidask" if the candleFormat parameter is not specified.
 
 * __includeFirst__: A boolean field which may be set to "true" or "false". If it is set to "true", the candlestick covered by the <i>start</i> timestamp will be returned. If it is set to "false", this candlestick will not be returned.  
 This field exists to provide clients a mechanism to not repeatedly fetch the most recent candlestick which it is not a "Dancing Bear".  
-Default: true
+If __includeFirst__ is not specified, the default setting is "true".
 
 * No candles are published for intervals where there are no ticks.  This will result in gaps in between time periods.
 
@@ -406,7 +404,7 @@ M" - midpoint-based candlesticks. Each Candle will have the format:
 
 -->
 
-"mid" midpoint-based candlesticks with tick volume
+"midpoint" midpoint-based candlesticks with tick volume
 
     {
         "timestamp":<TS>,
