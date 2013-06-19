@@ -32,7 +32,9 @@ Return a list of instruments (currency pairs, CFDs, and commodities) that are av
 **Optional**
 
 * __visibility__: "tradeable" (default) or "all". instrument that is tradeable means user can place a trade and order in with that instrument.  
-* __fields__: A comma-separated list of instrument fields which are to be returned in the response.  Please see the Response Parameters section below for a list of valid values.
+* __fields__: A comma-separated list of instrument fields which are to be returned in the response.  
+		Please see the Response Parameters section below for a list of valid values.
+		If not specified, the default fields returned are __instrument__, __displayName__, __pip__, __maxTradeUnits__.
 
 #### Response Parameters
 
@@ -79,9 +81,6 @@ Fetch live prices for specified instruments that are available on the OANDA plat
 #### Query Parameters
 
 **Required**
-<!--
-* __visibility__: "tradeable" (default) or "all". instrument that is tradeable means user can place a trade and order in with that instrument.
--->
 * __instruments__:  A comma-separated list of instruments to fetch prices for.  Values should be one of the available `instrument` from the /v1/instruments response.
                     For Example - http://api-sandbox.oanda.com/v1/quote?instruments=EUR_USD
 
@@ -182,16 +181,16 @@ __volume__ has a default value of 0, meaning that by default only the lowest run
 The default for __granularity__ is "S5" if the granularity parameter is not provided.
 
 * __count__: The number of candles to return in the response. This paramater may be ignored by the server depending on the time range provided. See "Time and Count Semantics" below for a full description.  * 
-The default for __count__ is 500. Max value for __count__ is 5000.  
+If not specified, __count__ will default to 500. The maximum acceptable value for __count__ is 5000.  
              
-__Note__: __count__ should not be specified if both the __start__ and __end__ parameters are also specified.
+	__Note__: __count__ should not be specified if both the __start__ and __end__ parameters are also specified.
 
-* __start__: The start timestamp for the range of candles requested. Default: NULL (unset)
+* __start__: The start timestamp for the range of candles requested.
 
-* __end__: The end timestamp for the range of candles requested. Default: NULL (unset)
+* __end__: The end timestamp for the range of candles requested.
 
 * __candleFormat__: Candlesticks representation ([about candestick representation](#candlestick-representation)). This can be one of the following:
-	* "mid" - Midpoint based candlesticks.
+	* "midpoint" - Midpoint based candlesticks.
 	* "bidask" - Bid/Ask based candlesticks
 
 The default for __candleFormat__ is "bidask" if the candleFormat parameter is not provided.
