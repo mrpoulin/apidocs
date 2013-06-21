@@ -28,7 +28,7 @@ Return a list of instruments (currency pairs, CFDs, and commodities) that are av
 **Optional**
 
 * __fields__: A (URL encoded) comma separated list of instrument fields that are to be returned in the response.
-              The __instrument__ field will be returned regardless of input to this query parameter.
+              The __instrument__ field will be returned regardless of the input to this query parameter.
               Please see the Response Parameters section below for a list of valid values.
 		
 
@@ -59,12 +59,6 @@ Return a list of instruments (currency pairs, CFDs, and commodities) that are av
 * **marginRate**: The margin requirement for the instrument. A 3% margin rate will be represented as 0.03.
  
 If the __fields__ parameter was not specified in the request, the default instrument fields returned are __instrument__, __displayName__, __pip__, __maxTradeUnits__.
-
-
-<!--
-* **pipLocation**: 10^(pipLocation) == value of 1 pip for the instrument.
-* **extraPrecision**: The number decimal places provided after the pip.
--->
 
 ## GET /v1/quote
 
@@ -102,7 +96,7 @@ Fetch live prices for specified instruments that are available on the OANDA plat
 #### Query Parameters
 
 **Required**
-* __instruments__:  A (URL encoded) comma separated list of instruments to fetch prices for.  Values should be one of the available `instrument` from the /v1/instruments response.
+* __instruments__:  A (URL encoded) comma separated list of instruments to fetch prices for.  Values should be one of the available instrument from the /v1/instruments response.
                     For Example - http://api-sandbox.oanda.com/v1/quote?instruments=EUR_USD
 
 
@@ -147,7 +141,7 @@ Fetch live prices for specified instruments that are available on the OANDA plat
 
 **Optional**
 
-* __granularity__: The time range represented by each candlestick.  The value specified will determine the alignment of the first candlestick.
+* __granularity__<sup>1</sup>: The time range represented by each candlestick.  The value specified will determine the alignment of the first candlestick.
     
 	Valid values are:
 
@@ -186,9 +180,9 @@ If not specified, __count__ will default to 500. The maximum acceptable value fo
              
 	__count__ should not be specified if both the __start__ and __end__ parameters are also specified.
 
-* __start__<sup>1</sup>: The start timestamp for the range of candles requested.  Must be specified in RFC3339 format.
+* __start__<sup>2</sup>: The start timestamp for the range of candles requested.  Must be specified in RFC3339 format.
 
-* __end__<sup>1</sup>: The end timestamp for the range of candles requested.  Must be specified in RFC3339 format.
+* __end__<sup>2</sup>: The end timestamp for the range of candles requested.  Must be specified in RFC3339 format.
 
 * __candleFormat__: Candlesticks representation ([about candestick representation](#candlestick-representation)). This can be one of the following:
 	* "midpoint" - Midpoint based candlesticks.
@@ -199,14 +193,15 @@ If not specified, __count__ will default to 500. The maximum acceptable value fo
 * __includeFirst__: A boolean field which may be set to "true" or "false". If it is set to "true", the candlestick covered by the <i>start</i> timestamp will be returned. If it is set to "false", this candlestick will not be returned.  
 This field exists to provide clients a mechanism to not repeatedly fetch the most recent candlestick which it is not a "Dancing Bear".  
 If __includeFirst__ is not specified, the default setting is "true".
-<br>
-<br>
-* No candles are published for intervals where there are no ticks.  This will result in gaps in between time periods.
 <p><br>
-<sup>1</sup>
-	If neither __start__ nor __end__ time are specified by the requester, __end__ will default to the current time and __count__ candles will be returned.<br>
-
+<sup>1</sup> No candles are published for intervals where there are no ticks.  This will result in gaps in between time periods.<br>
+<sup>2</sup> If neither __start__ nor __end__ time are specified by the requester, __end__ will default to the current time and __count__ candles will be returned.<br>
 <p>
+
+
+## Candlestick Representation
+
+
 __midpoint__ midpoint-based candlesticks with tick volume
 
     {
