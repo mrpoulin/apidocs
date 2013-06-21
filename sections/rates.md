@@ -116,7 +116,7 @@ Fetch live prices for specified instruments that are available on the OANDA plat
                "lowMid": 1.30237,
                "closeMid": 1.30237,
                "volume" : 5000,
-               "complete": "true",
+               "complete": true
            },
            {
                "time": 2013-06-21T17:41:05Z,  // time in RFC3339 format
@@ -125,7 +125,7 @@ Fetch live prices for specified instruments that are available on the OANDA plat
                "lowMid": 1.30242,
                "closeMid": 1.30242,
                "volume" : 2000,
-               "complete": "true"
+               "complete": true
            }
         ]
         
