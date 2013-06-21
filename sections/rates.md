@@ -97,7 +97,6 @@ Fetch live prices for specified instruments that are available on the OANDA plat
 
 **Required**
 * __instruments__:  A (URL encoded) comma separated list of instruments to fetch prices for.  Values should be one of the available instrument from the /v1/instruments response.
-                    For Example - http://api-sandbox.oanda.com/v1/quote?instruments=EUR_USD
 
 
 ## GET /v1/history
