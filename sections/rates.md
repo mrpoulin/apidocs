@@ -88,7 +88,7 @@ Fetch live prices for specified instruments that are available on the OANDA plat
 				"time":2013-06-21T17:51:38.063560Z,
 				"bid":1.37489,
 				"ask":1.37517,
-				"halted": "true"                    // this response parameter will only appear if the instrument is currently halted on the Oanda platform.
+				"halted": true                    // this response parameter will only appear if the instrument is currently halted on the Oanda platform.
 			}
 		]
 	}
