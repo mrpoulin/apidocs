@@ -245,7 +245,7 @@ The fields in the above candlesticks have the following meanings:
 * C_a - Close Tick Ask
 * C_m - Close Tick Mid
 * V   - Candlestick tick volume
-* DB  - "Dancing Bear". This optional field indicates that the candlestick
+* DB  - "Dancing Bear". This field indicates that the candlestick
         may still be modified by the creation of ticks in the future because
         the current server time is contained by the time range which the
         candlestick represents.
