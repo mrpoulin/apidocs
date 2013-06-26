@@ -93,7 +93,18 @@ When an error occurs, the applicable HTTP response code is returned as well as a
 |104|401|Unauthorized|need consent|OANDA Japan requires this error be returned upon update of their terms and conditions|
 |406|406|Invalid "visibility" parameter|The visibility="VISIBILITY" parameter is invalid. Choose one of "tradeable" or "all".||
 |406|406|Missing the "instruments" parameter|Missing the "instruments" parameter||
-|404|404| Granularity Not Found | "The granularity specified for INSTRUMENT ()GRANULARITY) is not recognized. Please select one of the following granularities: S5, S10, S15, S30, M1, M2, M3, M4, M5, M10, M15, M30, H1, H2, H3, H4, H6, H8, H1, D, W, M" | |
-|406|406| Invalid candle representation | The candle representation specified by candleRepr=CANDLE_FORMAT is not recognized. Please select one of the following candle representations: M, MV, BA, BAV | |
-|406|406| Could not retrieve ticks | Unable to retrieve ticks for "EURUSD": Instrument not found. | |
+|404|404|Granularity Not Found | "The granularity specified for INSTRUMENT ()GRANULARITY) is not recognized. Please select one of the following granularities: S5, S10, S15, S30, M1, M2, M3, M4, M5, M10, M15, M30, H1, H2, H3, H4, H6, H8, H1, D, W, M" | |
+|406|406|Invalid candle representation | The candle representation specified by candleRepr=CANDLE_FORMAT is not recognized. Please select one of the following candle representations: M, MV, BA, BAV | |
+|406|406|Could not retrieve ticks| Unable to retrieve ticks for "EURUSD": Instrument not found. | |
+|201|400|Bad Request|Invalid Granularity |Specify a valid granularity value |
+|202|400|Bad Request|Arguements conflict: [detailed message]|Specify arguements that do not conflict with one another|
+|203|400|Bad Request|The value specified is not in the valid range|Specify a value within the valid range|
+|204|404|Not Found|No candle found||
+|205|400|Bad Request|Invalid Timestamp|Specify a valid timestamp in RFC3339 format. (2012-12-12T18:18:18Z)|
+|206|404|Not Found|No tradeable instrument found|There is no instrument currently tradeable within your division|
+|207|400|Bad Request|Invalid instrument|The instrument specified is not a valid instrument|
+
+
+
+
 
