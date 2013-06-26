@@ -94,7 +94,7 @@ When an error occurs, the applicable HTTP response code is returned as well as a
 |202|400|Bad Request|Arguements conflict: [detailed message]|Specify arguements that do not conflict with one another|
 |203|400|Bad Request|The value specified is not in the valid range|Specify a value within the valid range|
 |204|404|Not Found|No candle found|No history was found for the instrument at the specified time range|
-|205|400|Bad Request|Invalid Timestamp|Specify a valid timestamp in RFC3339 format (2012-12-12T18:18:18Z)|
+|205|400|Bad Request|Invalid timestamp|Specify a valid timestamp in RFC3339 format (2012-12-12T18:18:18Z)|
 |206|404|Not Found|No tradeable instrument found|There is no instrument currently tradeable within your division|
 |207|400|Bad Request|Invalid instrument|The instrument specified is not a valid instrument|
 
